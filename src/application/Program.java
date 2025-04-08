@@ -1,6 +1,7 @@
 package application;
 
 import entities.Account;
+import exceptions.BusinessException;
 
 import java.util.Locale;
 import java.util.Scanner;
@@ -29,9 +30,13 @@ public class Program {
         System.out.print("Informe uma quantia para sacar: ");
         double amount = sc.nextDouble();
 
-        acc.withdraw(amount);
-        System.out.printf("Novo saldo: %.2f%n", acc.getBalance());
-
+        try { //Tenta rodar a função
+            acc.withdraw(amount);
+            System.out.printf("Novo saldo: %.2f%n", acc.getBalance());
+        }
+        catch (BusinessException e) { //Procura por uma excessão e
+            System.out.println(e.getMessage()); //Caso exista, imprime a excessão
+        }
         sc.close();
     }
 }
